@@ -1,33 +1,20 @@
 <?php
 	require "connect.php";
+	require "model/user.php";
 
-	$id = $_POST['id'];
+	$id = $_GET['id'];
 
-	$query = "SELECT fullname,avatar FROM account where id = $id";
+	$query = "SELECT id, name, email, avatar, address, phone  FROM Users where id = $id";
 	$data  = mysqli_query($con,$query);
 
-	class Profile{
-		var $fullname;
-		var $avatar;
-
-		function Profile($fullname,$avatar){
-			$this ->fullname = $fullname;
-			$this ->avatar = $avatar;
-		}
-
-		function getFullName(){
-			return $this ->fullname;
-		}
-	}
-
-	$profile = null;
+	$user = null;
 
 	if ($data){
 		while ($row = mysqli_fetch_assoc($data)) {
-			$profile = new Profile($row['fullname'],$row['avatar']);
+			$user = new User($row['id'], $row['name'], $row['email'], "", $row['avatar'], $row['address'], $row['phone']);
 		}
-		if ($profile != null){
-			echo json_encode($profile);
+		if ($user != null){
+			echo json_encode($user);
 			return;
 		}
 		echo "Access diened";

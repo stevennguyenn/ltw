@@ -20,7 +20,7 @@
 		echo json_encode(["message" => "Please enter password"]);
 		return;
 	}
-	$query = "INSERT INTO User VALUES (null, '$email','$name','$password','$avatar')";
+	$query = "INSERT INTO Users VALUES (null, '$email','$name','$password','$avatar')";
 	echo $query;
 	$data = mysqli_query($con, $query);
 	if ($data){
